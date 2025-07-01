@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Me Bot – The AI Concierge for Med Spas</title>
+  <meta name="description" content="Book Me Bot is a discreet, intelligent concierge that books appointments for med spas on your behalf. Elegant interface. Seamless automation. $1.99 per success only.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://js.stripe.com/v3/"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .softline { border-top: 1px solid rgba(255,255,255,0.07); }
+  </style>
+</head>
+<body class="bg-white text-neutral-900">
+  <!-- Hero -->
+  <section class="min-h-screen flex flex-col justify-center items-center bg-white text-center px-6">
+    <h1 class="text-5xl md:text-6xl font-light leading-tight tracking-tight max-w-4xl">A New Standard in Spa Bookings</h1>
+    <p class="text-lg md:text-xl max-w-2xl mt-6 text-neutral-600">Book Me Bot is your silent partner: an AI concierge that contacts med spas, secures real appointments on your behalf, and charges only <strong class="text-neutral-900">$1.99 per confirmed booking</strong>.</p>
+    <a href="#start" class="mt-10 inline-block px-8 py-3 border border-neutral-800 rounded-full text-neutral-800 font-medium hover:bg-neutral-800 hover:text-white transition">Experience It</a>
+  </section>
+
+  <!-- Problem + Value -->
+  <section class="py-24 bg-neutral-100 text-center">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-3xl font-light mb-8">The Problem</h2>
+      <p class="text-lg text-neutral-600 mb-12">Med spa operators are flooded with calls, emails and cold offers. Meanwhile, professionals looking to book are frustrated by outdated systems and inconsistent response rates.</p>
+      <h2 class="text-3xl font-light mb-8">Our Solution</h2>
+      <p class="text-lg text-neutral-700">Book Me Bot acts as your trusted AI representative — it contacts spas with elegance, builds trust, confirms bookings, and charges you only when it succeeds.</p>
+    </div>
+  </section>
+
+  <!-- Product Offer -->
+  <section class="py-24 bg-white border-y softline">
+    <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-3 gap-10 text-center">
+      <div>
+        <h3 class="text-xl font-medium mb-2">Concierge-Level Communication</h3>
+        <p class="text-neutral-600">Every message is tailored and thoughtful — no templates, no spam. Just elegant outreach your name deserves.</p>
+      </div>
+      <div>
+        <h3 class="text-xl font-medium mb-2">Performance-Based Pricing</h3>
+        <p class="text-neutral-600">Only $1.99 when a real spa booking is confirmed. Zero risk, total clarity.</p>
+      </div>
+      <div>
+        <h3 class="text-xl font-medium mb-2">Human-Like. Not Human-Heavy.</h3>
+        <p class="text-neutral-600">Let AI handle your admin so you can focus on care, business, or simply not doing it yourself.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Activation Interface -->
+  <section class="py-24 bg-neutral-50" id="start">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h2 class="text-3xl font-light mb-6">Ready to Delegate Elegantly?</h2>
+      <p class="text-neutral-600 text-lg mb-10">Activate your AI assistant by sharing your region and email. We’ll do the rest — beautifully.</p>
+      <form class="grid gap-6 text-left bg-white border border-neutral-300 p-8 rounded-2xl shadow-sm">
+        <label>
+          <span class="text-sm uppercase tracking-wide text-neutral-500">Target Region / Zip Code</span>
+          <input type="text" class="mt-2 w-full border border-neutral-300 rounded-lg px-4 py-3 text-neutral-900 bg-neutral-50" placeholder="e.g., Miami, FL or 10001" />
+        </label>
+        <label>
+          <span class="text-sm uppercase tracking-wide text-neutral-500">Your Email</span>
+          <input type="email" class="mt-2 w-full border border-neutral-300 rounded-lg px-4 py-3 text-neutral-900 bg-neutral-50" placeholder="you@example.com" />
+        </label>
+        <button type="submit" class="mt-4 px-6 py-3 border border-neutral-800 text-neutral-800 rounded-full hover:bg-neutral-900 hover:text-white transition">Activate Concierge</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Payment -->
+  <section class="py-20 bg-white">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="text-2xl font-light mb-4">Pricing</h2>
+      <p class="text-lg text-neutral-700 mb-6">We charge <strong>$1.99</strong> per confirmed booking. You’ll never be charged unless we deliver.</p>
+      <button id="checkout-button" class="px-8 py-3 border border-neutral-800 rounded-full hover:bg-neutral-900 hover:text-white transition">Pay $1.99 Now</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 bg-white text-center text-neutral-500 softline">
+    <p>&copy; 2025 Book Me Bot. All rights reserved.</p>
+    <p class="text-sm mt-2">Crafted for elegance. Designed to save you time.</p>
+  </footer>
+
+  <script>
+    const stripe = Stripe('pk_test_yourPublicKeyHere');
+    const checkoutButton = document.getElementById('checkout-button');
+    checkoutButton.addEventListener('click', () => {
+      stripe.redirectToCheckout({
+        lineItems: [{ price: 'price_yourPriceIdHere', quantity: 1 }],
+        mode: 'payment',
+        successUrl: window.location.href + '?success=true',
+        cancelUrl: window.location.href + '?canceled=true'
+      });
+    });
+  </script>
+</body>
+</html>
